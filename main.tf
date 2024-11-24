@@ -8,6 +8,7 @@ resource "aws_kms_key" "terraform_state" {
   tags = {
     Name = "Terraform State Encryption Key"
   }
+
 }
 
 # Create an alias for the KMS key
@@ -19,7 +20,8 @@ resource "aws_kms_alias" "terraform_state_alias" {
 # Create the S3 bucket for Terraform state
 resource "aws_s3_bucket" "terraform_state" {
   bucket = var.s3_bucket_name
-
+  force_destroy = true
+  
   tags = {
     Name        = "Terraform State Bucket"
     Environment = var.environment
